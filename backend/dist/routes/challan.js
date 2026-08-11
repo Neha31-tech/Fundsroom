@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const challanController_1 = require("../controllers/challanController");
+const pdfController_1 = require("../controllers/pdfController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.get('/', auth_1.authenticateToken, challanController_1.getChallans);
+router.get('/:id', auth_1.authenticateToken, challanController_1.getChallanById);
+router.get('/:id/pdf', auth_1.authenticateToken, pdfController_1.exportChallanPDF);
+router.post('/', auth_1.authenticateToken, (0, auth_1.requireRole)(['Admin', 'Sales']), challanController_1.createChallan);
+router.patch('/:id/status', auth_1.authenticateToken, (0, auth_1.requireRole)(['Admin', 'Sales', 'Warehouse']), challanController_1.updateChallanStatus);
+exports.default = router;
