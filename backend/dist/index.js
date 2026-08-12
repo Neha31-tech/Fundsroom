@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const cloudflare_node_1 = require("cloudflare:node");
 const auth_1 = __importDefault(require("./routes/auth"));
 const customer_1 = __importDefault(require("./routes/customer"));
 const product_1 = __importDefault(require("./routes/product"));
@@ -30,12 +31,13 @@ app.get('/api/dashboard/stats', async (req, res) => {
         const lowStockCount = await (0, db_1.query)('SELECT count(*) FROM products WHERE current_stock <= min_stock_alert');
         const activeChallanCount = await (0, db_1.query)("SELECT count(*) FROM challans WHERE status = 'Confirmed'");
         const totalSalesQty = await (0, db_1.query)("SELECT sum(total_quantity) FROM challans WHERE status = 'Confirmed'");
-        // Get recent stock movements
-        const movements = await (0, db_1.query)(`SELECT m.*, p.name as product_name, p.sku as product_sku, u.username as user_name 
+        const movements = await (0, db_1.query)(`SELECT m.*, p.name as product_name, p.sku as product_sku,
+              u.username as user_name
        FROM stock_movements m
        LEFT JOIN products p ON m.product_id = p.id
        LEFT JOIN users u ON m.created_by = u.id
-       ORDER BY m.created_at DESC LIMIT 5`);
+       ORDER BY m.created_at DESC
+       LIMIT 5`);
         return res.json({
             customers: parseInt(customerCount.rows[0].count),
             products: parseInt(productCount.rows[0].count),
@@ -46,10 +48,13 @@ app.get('/api/dashboard/stats', async (req, res) => {
         });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(500).json({
+            error: error.message
+        });
     }
 });
 // Run DB setup, seed data & Start Server
+(0, db_1.initDb)();
 const startServer = async () => {
     await (0, schema_1.runSchemaAndSeed)();
     app.listen(PORT, () => {
@@ -57,3 +62,4 @@ const startServer = async () => {
     });
 };
 startServer();
+exports.default = (0, cloudflare_node_1.httpServerHandler)({ port: Number(PORT) });

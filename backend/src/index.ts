@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { httpServerHandler } from 'cloudflare:node';
+
 import authRoutes from './routes/auth';
 import customerRoutes from './routes/customer';
 import productRoutes from './routes/product';
 import challanRoutes from './routes/challan';
-import { runSchemaAndSeed } from './db/schema';
-import { query } from './db';
 
+import { query } from './db';
 dotenv.config();
 
 const app = express();
@@ -26,18 +27,29 @@ app.use('/api/challans', challanRoutes);
 app.get('/api/dashboard/stats', async (req, res) => {
   try {
     const customerCount = await query('SELECT count(*) FROM customers');
+
     const productCount = await query('SELECT count(*) FROM products');
-    const lowStockCount = await query('SELECT count(*) FROM products WHERE current_stock <= min_stock_alert');
-    const activeChallanCount = await query("SELECT count(*) FROM challans WHERE status = 'Confirmed'");
-    const totalSalesQty = await query("SELECT sum(total_quantity) FROM challans WHERE status = 'Confirmed'");
-    
-    // Get recent stock movements
+
+    const lowStockCount = await query(
+      'SELECT count(*) FROM products WHERE current_stock <= min_stock_alert'
+    );
+
+    const activeChallanCount = await query(
+      "SELECT count(*) FROM challans WHERE status = 'Confirmed'"
+    );
+
+    const totalSalesQty = await query(
+      "SELECT sum(total_quantity) FROM challans WHERE status = 'Confirmed'"
+    );
+
     const movements = await query(
-      `SELECT m.*, p.name as product_name, p.sku as product_sku, u.username as user_name 
+      `SELECT m.*, p.name as product_name, p.sku as product_sku,
+              u.username as user_name
        FROM stock_movements m
        LEFT JOIN products p ON m.product_id = p.id
        LEFT JOIN users u ON m.created_by = u.id
-       ORDER BY m.created_at DESC LIMIT 5`
+       ORDER BY m.created_at DESC
+       LIMIT 5`
     );
 
     return res.json({
@@ -49,16 +61,20 @@ app.get('/api/dashboard/stats', async (req, res) => {
       recentMovements: movements.rows
     });
   } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      error: error.message
+    });
   }
 });
 
 // Run DB setup, seed data & Start Server
-const startServer = async () => {
-  await runSchemaAndSeed();
-  app.listen(PORT, () => {
-    console.log(`Backend server is running on http://localhost:${PORT}`);
-  });
-};
 
-startServer();
+// Start Server
+
+app.listen(PORT, () => {
+  console.log(
+    `Backend server is running on http://localhost:${PORT}`
+  );
+});
+
+export default httpServerHandler({ port: Number(PORT) });

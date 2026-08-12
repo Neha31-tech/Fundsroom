@@ -1,0 +1,12 @@
+{
+  "name": "fundsroom-backend",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "63bcd4b7f81946f7b8dd0c0b306e1234"
+    }
+  ]
+}
