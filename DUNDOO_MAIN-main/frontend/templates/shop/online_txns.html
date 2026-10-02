@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Online Transactions{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+  {% include "shop/_sidebar.html" %}
+
+  <main class="dashboard-main">
+
+    <h2>💸 Online Transactions</h2>
+
+    <form method="get" style="margin-bottom:15px;">
+      <input type="date" name="date" value="{{ selected_date }}">
+      <button class="btn btn-primary">Filter</button>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Payment ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in txns %}
+        <tr>
+          <td>{{ t.razorpay_payment_id }}</td>
+          <td>₹{{ t.amount }}</td>
+          <td>{{ t.status }}</td>
+          <td>{{ t.created_at.strftime('%d %b %Y %I:%M %p') }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4">No online transactions found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </main>
+</div>
+{% endblock %}

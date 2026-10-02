@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block title %}Billing & Invoices{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+
+  {% include "shop/_sidebar.html" %}
+
+  <main class="dashboard-main">
+
+    
+    <header class="dashboard-header">
+      <div>
+        <h1 class="welcome-title">Billing & Invoices</h1>
+        <p class="welcome-subtitle">
+          See what you sold, profits, and download PDF summaries.
+        </p>
+      </div>
+      <div class="header-actions">
+        <a href="{{ url_for('shop.billing_pdf', period=period) }}"
+           class="btn btn-primary">
+           Download PDF
+        </a>
+      </div>
+    </header>
+
+   
+    <section class="card" style="margin-bottom: 16px;">
+      <div class="card-body" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div>
+          <div class="kpi-label" style="margin-bottom:4px;">Period</div>
+          <div>
+            <a href="{{ url_for('shop.billing', period='today') }}"
+               class="pill-link {% if period == 'today' %}pill-link-primary{% endif %}">
+              Today
+            </a>
+            <a href="{{ url_for('shop.billing', period='month') }}"
+               class="pill-link {% if period == 'month' %}pill-link-primary{% endif %}">
+              This month
+            </a>
+            <a href="{{ url_for('shop.billing', period='6months') }}"
+               class="pill-link {% if period == '6months' %}pill-link-primary{% endif %}">
+              Last 6 months
+            </a>
+          </div>
+        </div>
+        <div style="text-align:right;font-size:13px;color:#6b7280;">
+          <div>From <strong>{{ start_date.strftime('%d %b %Y') }}</strong>
+               to <strong>{{ end_date.strftime('%d %b %Y') }}</strong></div>
+          <div>You can export up to 6 months at once.</div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="kpi-grid" style="margin-bottom:16px;">
+      <div class="kpi-card">
+        <div class="kpi-label">Total invoices</div>
+        <div class="kpi-value">{{ stats.total_invoices }}</div>
+        <div class="kpi-caption">Number of sale records in this period</div>
+      </div>
+
+      <div class="kpi-card kpi-positive">
+        <div class="kpi-label">Total sales</div>
+        <div class="kpi-value">₹{{ '%.2f'|format(summary.total_sales) }}</div>
+        <div class="kpi-caption">Gross revenue</div>
+      </div>
+
+      <div class="kpi-card kpi-positive">
+        <div class="kpi-label">Total profit</div>
+        <div class="kpi-value">₹{{ '%.2f'|format(summary.total_profit) }}</div>
+        <div class="kpi-caption">After cost price</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Units sold</div>
+        <div class="kpi-value">{{ summary.total_qty }}</div>
+        <div class="kpi-caption">All products combined</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Paid today (info)</div>
+        <div class="kpi-value">₹{{ '%.2f'|format(stats.paid_today) }}</div>
+        <div class="kpi-caption">Only used when period = today</div>
+      </div>
+    </section>
+
+    
+    <section class="charts-row" style="margin-bottom: 16px;">
+      
+      <div class="card">
+        <div class="card-header">
+          <span>Invoices / Sales in this period</span>
+        </div>
+        <div class="card-body table-wrapper">
+          {% if sales %}
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Date &amp; time</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Qty</th>
+              <th>Unit (₹)</th>
+              <th>Total (₹)</th>
+              <th>Customer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in sales %}
+              <tr>
+                <td>{{ s.created_at.strftime('%d %b %Y, %I:%M %p') }}</td>
+                <td>{{ s.product.product_name if s.product else 'Unknown' }}</td>
+                <td>
+                  {% if s.product and s.product.category %}
+                    {{ s.product.category }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+                <td>{{ s.quantity }}</td>
+                <td>{{ '%.2f'|format(s.unit_price or 0) }}</td>
+                <td>{{ '%.2f'|format(s.total_price or 0) }}</td>
+                <td>{{ s.customer_name or "—" }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+            <p class="empty-state">No sales recorded for this period.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      
+      <div class="card">
+        <div class="card-header">
+          <span>Summary</span>
+        </div>
+        <div class="card-body" style="max-height:520px;overflow:auto;">
+          <h3 class="card-section-title">By category</h3>
+          {% if summary.categories %}
+            <ul style="list-style:none;padding:0;margin:0 0 16px 0;font-size:13px;">
+              {% for row in summary.categories %}
+                <li style="margin-bottom:6px;">
+                  <strong>{{ row.category }}</strong><br>
+                  Sales: ₹{{ '%.2f'|format(row.amount) }},
+                  Profit: ₹{{ '%.2f'|format(row.profit) }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="empty-state">No category data.</p>
+          {% endif %}
+
+          <h3 class="card-section-title">Top products</h3>
+          {% if summary.products %}
+            <ul style="list-style:none;padding:0;margin:0;font-size:13px;">
+              {% for row in summary.products[:8] %}
+                <li style="margin-bottom:6px;">
+                  <strong>{{ row.product_name }}</strong>
+                  <span style="color:#6b7280;">({{ row.category }})</span><br>
+                  Qty: {{ row.quantity }},
+                  Sales: ₹{{ '%.2f'|format(row.amount) }},
+                  Profit: ₹{{ '%.2f'|format(row.profit) }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="empty-state">No product summary yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+{% endblock %}

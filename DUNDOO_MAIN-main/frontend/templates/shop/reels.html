@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Reel Ads{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+
+  {% include "shop/_sidebar.html" %}
+
+  <main class="dashboard-main reels-page">
+
+    <header class="dashboard-header">
+      <div>
+        <h1 class="welcome-title">🎥 Reel Ads</h1>
+        <p class="welcome-subtitle">
+          Upload short videos to promote your shop nearby.
+        </p>
+      </div>
+    </header>
+
+    <!-- CREATE REEL -->
+    <section class="card">
+      <div class="card-header">
+        <span>Create New Reel</span>
+      </div>
+
+      <div class="card-body">
+        <form id="reelForm" class="form-grid" enctype="multipart/form-data">
+
+          <div>
+            <label>Upload Video (Max 5 minutes)</label>
+            <input type="file"
+                   id="video"
+                   name="video"
+                   accept="video/mp4,video/webm,video/mov"
+                   required>
+          </div>
+
+          <div>
+            <label>Offer Type</label>
+            <select id="offer_type">
+              <option value="percent">Percentage OFF</option>
+              <option value="flat">Flat Discount</option>
+              <option value="bogo">Buy 1 Get 1</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Offer Value</label>
+            <input type="text" id="offer_value" placeholder="20 / ₹50 / Free Item">
+          </div>
+
+          <div>
+            <label>Active For (Days)</label>
+            <input type="number" id="duration_days" value="3" min="1" max="30">
+          </div>
+
+          <div class="full-width">
+            <label>
+              Promotion Range:
+              <strong><span id="radiusValue">40</span> km</strong>
+            </label>
+          
+            <input
+              type="range"
+              id="radius"
+              min="1"
+              max="40"
+              step="1"
+              value="40"
+            />
+          
+            <small class="text-muted">
+              Your reel will be shown to users within this distance.
+            </small>
+          </div>
+          
+
+          <div>
+            <label>Daily Budget (₹)</label>
+            <input type="number" id="budget" value="100">
+          </div>
+
+          <div class="full-width">
+            <button class="btn btn-primary" type="submit">
+              🚀 Publish Reel
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- MY REELS -->
+    <section class="card table-card">
+      <div class="card-header">
+        <span>Your Reels</span>
+      </div>
+
+      <div class="card-body table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Video</th>
+              <th>Offer</th>
+              <th>Days Left</th>
+              <th>Status</th>
+              <th class="text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody id="reelsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const SHOP_LAT = {{ shop.latitude }};
+  const SHOP_LON = {{ shop.longitude }};
+</script>
+<script src="{{ url_for('static', filename='js/reels_shop.js') }}"></script>
+{% endblock %}

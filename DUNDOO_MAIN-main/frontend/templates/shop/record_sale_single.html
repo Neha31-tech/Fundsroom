@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Record Sale{% endblock %}
+
+{% block content %}
+<div class="product-page">
+  <div class="product-header-row">
+    <div>
+      <h1 class="page-title">Record Sale</h1>
+      <p class="page-subtitle">
+        Record a sale and automatically update your stock & profit.
+      </p>
+    </div>
+    <div class="header-actions">
+      <a href="{{ url_for('shop.dashboard') }}" class="btn btn-ghost">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <form method="post" class="product-form">
+    <div class="card">
+      <div class="card-body product-form-body">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="product_id">Product</label>
+            <select
+              id="product_id"
+              name="product_id"
+              class="form-select"
+              required
+            >
+              <option value="" disabled selected>Select product</option>
+              {% for p in products %}
+                <option value="{{ p.id }}">
+                  {{ p.product_name }} ({{ p.quantity }} in stock)
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="quantity">Quantity sold</label>
+              <input
+                type="number"
+                min="1"
+                id="quantity"
+                name="quantity"
+                class="form-input"
+                placeholder="e.g. 2"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="customer_name">Customer (optional)</label>
+              <input
+                type="text"
+                id="customer_name"
+                name="customer_name"
+                class="form-input"
+                placeholder="Walk-in Customer"
+              >
+            </div>
+          </div>
+
+          <p class="form-help">
+            When you save, stock will be reduced automatically and today’s sales & profit
+            on the dashboard will be updated.
+          </p>
+        </div>
+
+        <div class="product-form-footer">
+          <a href="{{ url_for('shop.dashboard') }}" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save Sale</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

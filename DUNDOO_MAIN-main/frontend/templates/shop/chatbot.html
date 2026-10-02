@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Help Chatbot{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+
+
+    {% include "shop/_sidebar.html" %}
+ 
+  
+
+
+  <main class="dashboard-main">
+
+    <header class="dashboard-header">
+      <div>
+        <h1 class="welcome-title">Help &amp; Chatbot</h1>
+        <p class="welcome-subtitle">
+          Ask questions about how to use your NearbyShop dashboard.
+        </p>
+      </div>
+    </header>
+
+    <section class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <span>Assistant</span>
+      </div>
+      <div class="card-body">
+        <p>
+          This helper is rule-based (no API key needed) and knows about:
+        </p>
+        <ul>
+          <li>Adding products, stock and prices</li>
+          <li>Recording sales &amp; billing</li>
+          <li>Understanding low-stock / expiry alerts</li>
+          <li>Dashboard metrics &amp; reports</li>
+        </ul>
+
+        <div id="chatbot-box" style="margin-top:16px;">
+          <div id="chatbot-messages"
+               style="max-height:360px; overflow-y:auto; border:1px solid #e5e7eb; border-radius:16px; padding:12px; background:#f9fafb;">
+            <div class="chatbot-message bot">
+              Hi {{ shop.shopkeeper_name|title }} 👋<br>
+              I can help you use this website. Try questions like:
+              <ul style="margin-top:4px;">
+                <li><code>how to add product</code></li>
+                <li><code>how to record sale</code></li>
+                <li><code>what is low stock alert</code></li>
+                <li><code>how reports work</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <form id="chatbot-form"
+                style="margin-top:10px; display:flex; gap:8px; align-items:center;">
+            <input
+              type="text"
+              id="chatbot-input"
+              class="form-input"
+              placeholder="Ask something about using this dashboard…"
+              autocomplete="off"
+              style="flex:1;"
+            >
+            <button class="btn btn-primary" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/shop_chatbot.js') }}"></script>
+{% endblock %}

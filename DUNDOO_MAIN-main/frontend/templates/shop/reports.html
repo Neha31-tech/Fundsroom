@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+
+
+    {% include "shop/_sidebar.html" %}
+ 
+  
+
+ 
+  <main class="dashboard-main">
+
+    <header class="dashboard-header">
+      <div>
+        <h1 class="welcome-title">Reports &amp; Growth</h1>
+        <p class="welcome-subtitle">
+          See your sales, profit and growth over time.
+        </p>
+      </div>
+    </header>
+
+    
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Sales (last 30 days)</div>
+        <div class="kpi-value">₹{{ '%.2f'|format(stats.total_sales) }}</div>
+      </div>
+
+      <div class="kpi-card kpi-positive">
+        <div class="kpi-label">Profit (last 30 days)</div>
+        <div class="kpi-value">₹{{ '%.2f'|format(stats.total_profit) }}</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Orders (last 30 days)</div>
+        <div class="kpi-value">{{ stats.total_orders }}</div>
+        <div class="kpi-caption">
+          Avg order ₹{{ '%.2f'|format(stats.avg_order_value) }}
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-positive">
+        <div class="kpi-label">Sales growth vs prev 30 days</div>
+        <div class="kpi-value">
+          {% if stats.growth_sales_30d is none %}
+            —
+          {% else %}
+            {{ '%.1f'|format(stats.growth_sales_30d) }}%
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-positive">
+        <div class="kpi-label">Profit growth vs prev 30 days</div>
+        <div class="kpi-value">
+          {% if stats.growth_profit_30d is none %}
+            —
+          {% else %}
+            {{ '%.1f'|format(stats.growth_profit_30d) }}%
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="card chart-card" style="margin-top:16px;">
+      <div class="card-header">
+        <span>Sales trend (last 6 months)</span>
+      </div>
+      <div class="card-body chart-body">
+        {% if month_labels %}
+          <canvas id="reportsSalesChart"></canvas>
+        {% else %}
+          <p class="empty-state">
+            Not enough sales data yet. Record some sales to see this chart.
+          </p>
+        {% endif %}
+      </div>
+    </section>
+
+    
+    <section class="card table-card" style="margin-top:16px;">
+      <div class="card-header">
+        <span>Top products (last 30 days)</span>
+      </div>
+      <div class="card-body table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Qty</th>
+              <th>Sales (₹)</th>
+              <th>Profit (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in summary_30d.products %}
+            <tr>
+              <td>{{ row.product_name }}</td>
+              <td>{{ row.category }}</td>
+              <td>{{ row.quantity }}</td>
+              <td>{{ '%.2f'|format(row.amount) }}</td>
+              <td>{{ '%.2f'|format(row.profit) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="empty-row">
+                No sales yet in the last 30 days.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const reportMonthLabels = {{ month_labels|tojson }};
+    const reportMonthValues = {{ month_values|tojson }};
+
+    if (reportMonthLabels.length > 0) {
+      const ctx = document.getElementById('reportsSalesChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: reportMonthLabels,
+          datasets: [{
+            label: 'Sales (₹)',
+            data: reportMonthValues,
+            tension: 0.35
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: true } },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return value.toLocaleString('en-IN');
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}Record Sale{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+  {% include "shop/_sidebar.html" %}
+
+  <main class="dashboard-main">
+
+    <div class="transaction-wrapper">
+
+      <!-- PREMIUM FLASH MESSAGES -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="toast-container">
+            {% for category, message in messages %}
+              <div class="toast toast-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <div class="transaction-container">
+
+        <!-- LEFT PANEL -->
+        <div class="transaction-form">
+
+          <div class="transaction-head">
+            <h1>New Transaction</h1>
+            <p>Create and process a sale securely</p>
+          </div>
+
+          <form method="post" id="saleForm">
+            <input type="hidden" name="payment_mode" id="payment_mode">
+
+            <div class="field">
+              <label>Product</label>
+              <select name="product_id" required>
+                <option value="">Select product</option>
+                {% for p in products %}
+                <option value="{{ p.id }}">
+                  {{ p.product_name }} — ₹{{ '%.2f'|format(p.price or 0) }} ({{ p.quantity }})
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label>Quantity</label>
+                <input type="number" name="quantity" required>
+              </div>
+
+              <div class="field">
+                <label>Customer Name</label>
+                <input type="text" name="customer_name">
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Customer Mobile</label>
+              <input type="text" name="customer_mobile">
+            </div>
+
+            <div class="payment-buttons">
+              <button type="submit"
+                      onclick="document.getElementById('payment_mode').value='offline'"
+                      class="pay-offline">
+                💵 Cash / Offline
+              </button>
+
+              <button type="button" id="prepareBtn"
+                      class="pay-online">
+                💳 Online Payment
+              </button>
+
+              <a href="{{ url_for('shop.dashboard') }}" class="cancel-link">
+                Cancel
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="transaction-summary">
+          <h3>Transaction Summary</h3>
+
+          <div class="summary-item">
+            <span>Product</span>
+            <strong id="summary-product">—</strong>
+          </div>
+
+          <div class="summary-item">
+            <span>Quantity</span>
+            <strong id="summary-qty">0</strong>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span>Total</span>
+            <strong id="summary-total">₹0.00</strong>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+
+
+
+
+<script>
+  window.addEventListener("load", function () {
+  
+      const stored = sessionStorage.getItem("ai_sale_data");
+      if (!stored) return;
+  
+      const data = JSON.parse(stored);
+      console.log("Auto filling:", data);
+  
+      const productSelect = document.getElementById("product_id");
+      const qtyInput = document.querySelector("input[name='quantity']");
+      const customerInput = document.querySelector("input[name='customer_name']");
+  
+      // 🔥 SELECT PRODUCT SAFELY
+      if (productSelect && data.product_id) {
+          for (let option of productSelect.options) {
+              if (option.value == String(data.product_id)) {
+                  option.selected = true;
+                  break;
+              }
+          }
+  
+          // 🔥 IMPORTANT: Trigger change event
+          productSelect.dispatchEvent(new Event("change"));
+      }
+  
+      // Quantity
+      if (qtyInput) {
+          qtyInput.value = data.quantity || 1;
+          qtyInput.dispatchEvent(new Event("input"));
+      }
+  
+      // Customer
+      if (customerInput && data.customer_name) {
+          customerInput.value = data.customer_name;
+      }
+  
+      sessionStorage.removeItem("ai_sale_data");
+  
+  });
+  </script>
+
+
+
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="{{ url_for('static', filename='js/razorpay_payment.js') }}"></script>
+
+{% endblock %}

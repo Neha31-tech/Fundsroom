@@ -1,0 +1,233 @@
+.app-reels-layout {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+}
+
+.reels-back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 24px;
+  z-index: 100;
+  background: rgba(0,0,0,0.5);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s;
+}
+
+.reels-back-btn:hover {
+  background: rgba(22, 163, 74, 0.8);
+  color: white;
+  transform: scale(1.1);
+}
+
+.reels-viewport {
+  width: 100%;
+  max-width: 450px; /* Mobile width constraint for premium feel on desktop */
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+.reels-viewport::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Individual Reel Node */
+.reel-node {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* The dark gradient overlay at the bottom so text is readable */
+.reel-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+}
+
+/* Text info at bottom left */
+.reel-info {
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  width: calc(100% - 80px); /* Leave room for side buttons */
+  color: #fff;
+  z-index: 10;
+}
+
+.reel-shop {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reel-shop .verified-badge {
+  color: #facc15; /* Our premium yellow */
+  font-size: 14px;
+}
+
+.reel-desc {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+/* Music Scroller */
+.reel-music {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  background: rgba(255,255,255,0.2);
+  padding: 6px 12px;
+  border-radius: 999px;
+  width: max-content;
+  backdrop-filter: blur(4px);
+}
+
+/* Side Action Buttons */
+.reel-actions {
+  position: absolute;
+  bottom: 40px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  z-index: 10;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.action-btn i {
+  font-size: 28px;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.action-btn.liked i {
+  color: #ef4444; /* Instagram Red Heart */
+  animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.action-text {
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.reel-product-card {
+  position: absolute;
+  top: 80px;
+  right: 16px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  padding: 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transform: translateZ(20px);
+  transition: transform 0.3s;
+}
+.reel-product-card:hover {
+  transform: scale(1.05) translateZ(30px);
+}
+
+.reel-loading {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  font-size: 24px;
+  font-weight: bold;
+}
+.reel-loading p {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 12px;
+}
+
+/* Big Heart animation for double tap */
+.big-heart {
+  position: absolute;
+  color: rgba(239, 68, 68, 0.9);
+  font-size: 100px;
+  opacity: 0;
+  transform: scale(0);
+  z-index: 50;
+  pointer-events: none;
+}
+
+.animate-heart {
+  animation: dynamicHeart 0.8s ease-out forwards;
+}
+
+@keyframes dynamicHeart {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  15% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+  30% { transform: scale(1) rotate(-5deg); opacity: 1; }
+  80% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100px) scale(0.8); opacity: 0; }
+}

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUNDOO – Hyperlocal Services</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chama.css') }}">
+
+
+  
+  <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+  <meta name="google" content="notranslate">
+
+</head>
+<body>
+
+ 
+
+<div class="header-spacer"></div>
+
+  
+<header class="glass-header">
+  <div class="glass-inner">
+  <div class="logo">DUNDOO</div>
+
+  
+  <nav class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#Services">Services</a>
+    <a href="#footer-main">Support</a>
+  </nav>
+
+  
+  <div class="header-actions">
+    <button class="btn get-started">Get Started</button>
+
+    <div class="auth-buttons">
+      <a href="{{ url_for('user.login') }}" class="btn get-started" >
+        Login as User
+      </a>
+    
+      <a href="{{ url_for('shop.login') }}" class="btn get-started">
+        Login as Shop Owner
+      </a>
+    </div>
+    
+
+
+    
+<select id="languageSwitcher" class="lang-dropdown notranslate" translate="no">
+  <option value="en">English</option>
+  <option value="hi">हिन्दी</option>
+  <option value="te">తెలుగు</option>
+  <option value="ta">தமிழ்</option>
+  <option value="ml">മലയാളം</option>
+  <option value="kn">ಕನ್ನಡ</option>
+  <option value="gu">ગુજરાતી</option>
+  <option value="mr">मराठी</option>
+  <option value="bn">বাংলা</option>
+  <option value="pa">ਪੰਜਾਬੀ</option>
+  <option value="or">ଓଡ଼ିଆ</option>
+  <option value="as">অসমীয়া</option>
+  <option value="ur">اردو</option>
+  <option value="sd">سنڌي</option>
+  <option value="ks">कश्मीरी</option>
+  <option value="ne">नेपाली</option>
+  <option value="sa">संस्कृत</option>
+  <option value="mai">मैथिली</option>
+  <option value="kok">कोंकणी</option>
+  <option value="doi">डोगरी</option>
+  <option value="mni">মৈতৈলোন্</option>
+  <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ</option>
+</select>
+
+<button id="voiceBtn" class="btn get-started">🎤 Talk to Dundoo AI</button>
+<script src="{{ url_for('static', filename='js/voice_assistant.js') }}"></script>
+<script>startVoice("voiceBtn");</script>
+
+
+
+
+<div id="google_translate_element" style="display:none;"></div>
+
+  
+    </div>
+  </div>
+</div>
+
+</header>
+
+  
+<section class="hero">
+  <div class="container hero-grid">
+<div class="hero-decor hero-decor-left">
+  <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664536/conorimage_zimsv8.svg" alt="image" aria-hidden="true">
+</div>
+
+    
+    <div class="hero-content hero-float">
+      <h1 class="gradient-text">Your One-Stop Solution for Daily Services</h1>
+      <h1 class="gradient-text">One place for every necessity</h1>
+      <p class="about-highlight">
+        Groceries, healthcare, electronics & more — all in one place.
+      </p>
+      <p class="about-highlight">
+        Empowering local shops. Simplifying your daily needs.
+      </p>
+    </div>
+
+    
+    <div class="hero-image">
+      <div class="hero-3d-wrapper">
+      <div class="hero-3d-rotator" >
+      <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664716/Shopping_bag-cuate_nerjbu.svg" alt="Local services illustration">
+        </div>
+      </div>
+      <p class="hero-image-text">
+        Trusted local shops • Fast delivery • Verified providers
+      </p>
+    </div>
+
+  </div>
+</section>
+
+  
+  <section class="categories container">
+    <h2>Shop With Categories</h2>
+
+    <div class="category-grid">
+      <div class="category-card">
+        <div class="card-inner">
+
+        <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664649/Grocery_tfqqyi.svg" alt="Groceries" />
+        </div>
+        <span>Groceries</span>
+      </div>
+
+      <div class="category-card">
+        <div class="card-inner">
+        <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664673/healthcare_wlqdj2.svg" alt="Healthcare" />
+        </div>
+        <span>Healthcare</span>
+      </div>
+
+      <div class="category-card">
+        <div class="card-inner">
+        <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664608/fruites_nmktha.svg" alt="Fruites" />
+        </div>
+        <span>Fruits and Vegetables</span>
+      </div>
+
+      <div class="category-card">
+        <div class="card-inner">
+        <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664634/gadgets_vcvfuh.svg" alt="Electronics" />
+        </div>
+        <span>Electronics and Gadgets</span>
+      </div>
+      <div class="category-card">
+        <div class="card-inner">
+        <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664562/dress_w7zk5r.svg" alt="Dressess" />
+        </div>
+
+        <span>Clothing</span>
+      </div>
+ 
+    </div>
+  </section>
+
+
+
+<section class="about-section reveal">
+  <div class="container about-grid">
+
+    <div class="about-text">
+      <h2>Discover Local Services and Providers,Instantly</h2>
+<p class="about-highilight">
+  Find trusted local businesses near you — fast, reliable, and hassle-free.
+</p>
+
+      <p class="about-highlight">
+        Dundoo connects users with nearby shops and trusted service providers
+        using a hyperlocal discovery platform.
+      </p>
+
+      <p class="about-highlight">
+        Many local businesses are not visible online, while users struggle
+        to find reliable services in urgent situations.
+        <br> Dundoo bridges this gap with location-based discovery.
+      </p>
+
+      <p class="about-highlight">
+        Location-based service discovery..Verified local providers
+        <br>Supports local businesses 
+        
+      </p>
+    </div>
+
+    
+    <div class="about-image">
+      <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664278/brand_loyalty-bro_katozf.svg" alt="Discover local services" />
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="steps-section reveal">
+  <div class="container steps-grid">
+
+   <div class="step-card">
+  <div class="step-icon">
+    <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664693/search_b3egwz.svg" alt="Search nearby services">
+  </div>
+  <h4>Search Nearby</h4>
+  <p>Find services based on your location</p>
+</div>
+
+  <div class="step-card">
+  <div class="step-icon">
+    <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664524/choose_tlzjzs.svg" alt="Choose provider"> 
+  </div>
+  <h4>Choose provider</h4> 
+  <p>Compare trusted local providers</p> 
+</div>
+
+     <div class="step-card">
+  <div class="step-icon">
+    <img src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1766664550/contact_u8qd6m.svg" alt="Connect instantly">  
+  </div>
+  <h4>Connect instantly</h4>  
+  <p>Call or Visit the provider directly</p>  
+</div>
+
+  </div>
+</section>
+
+
+<section class="cta-section">
+  <div class="cta-container">
+
+    <div class="cta-left">
+      <h2>Need products immediately?</h2>
+      <p>Discover nearby shops and service providers near you in seconds</p>
+      <button class="cta-btn">Find Nearby</button>
+    </div>
+
+    <div class="cta-right">
+      <img 
+        src="https://res.cloudinary.com/dp5rqtjnk/image/upload/v1768032157/Online_Groceries-bro_1_wpqb3j.svg" 
+        alt="Mobile App Preview"
+      >
+    </div>
+
+  </div>
+</section>
+
+
+  
+
+  
+  <footer class="footer-main" >
+    <div class="footer-image">
+    </div>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <h3><span>●</span> DUNDOO</h3>
+        <p class="phone">+91 908765654</p>
+         <p class="email">dundooinfo@dundoo.com</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li>Shops</li>
+          <li>Medical Stores</li>
+          <li>Track Order</li>
+          <li>Customer Help</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li>Terms & conditions</li>
+          <li>Privacy Policy</li>
+          <li>Refund Policy</li>
+        </ul>
+      </div>
+    
+
+    </div>
+
+    <div class="footer-bottom">
+
+    </div>
+  </footer>
+
+  
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    reveals.forEach(el => observer.observe(el));
+</script>
+ 
+<div id="dundoo-chat-icon">
+  <img src="https://res.cloudinary.com/df3lfss5o/image/upload/v1766662211/ChatGPT_Image_Dec_25_2025_04_45_09_PM_ce2i0v.png">
+</div>
+  
+
+<div id="dundoo-chatbox">
+
+  
+  <div class="chat-header">
+    <span>DUNDOO Assistant</span>
+    <button onclick="resetChat()">↻</button>
+    <button onclick="closeChat()">✕</button>
+  </div>
+
+  
+  <div class="chat-content">
+
+    
+    <div id="langScreen" class="screen active">
+      <div class="robot-only"></div>
+
+      <div class="welcome-box">
+        <b>Welcome to DUNDOO.</b><br>
+        I am your digital assistant to help you to Find the Right Product
+        in the Right Nearby Shop.
+      </div>
+
+      <button class="lang-btn" onclick="setLang('en')">English</button>
+      <button class="lang-btn" onclick="setLang('hi')">हिन्दी</button>
+    </div>
+
+     
+    <div id="chatScreen" class="screen"></div>
+
+  </div>
+</div>
+
+<script>
+
+let currentLang = "en";
+
+
+const TEXT = {
+  en: {
+    welcome: `👋 Hi! Welcome to <b>DUNDOO</b><br><br>
+New here?<br>
+I’ll help you understand what DUNDOO is and how you can use it.`,
+    whatIs: `DUNDOO helps people find the exact product in the right nearby shop,
+so you don’t waste time visiting the wrong shops.`,
+    customer: `You can search for a product and we’ll show nearby shops
+that actually have it in stock.please login or register to continue.`,
+    customerLogin: `To continue as a <b>Customer</b>, please follow the steps below 😊<br><br>
+<b>Steps:</b><br>
+1️⃣ Click on the <b>Login as Customer</b> tab<br>
+2️⃣ Enter your mobile number<br>
+3️⃣ Verify OTP<br>
+4️⃣ Start searching products nearby 🔍<br><br>
+Login is completely free and takes less than 1 minute.`,
+    shop: `You can register your shop, add products easily,
+and get more walk-in customers near you.`,
+    shopRegister: `Registration is completely free and takes less than 1 minute 😊<br><br>
+<b>Steps to register your shop on DUNDOO:</b><br>
+1️⃣ Press <b>Login as Shop Owner</b><br>
+2️⃣ Verify your mobile number using OTP<br>
+3️⃣ Enter your shop details and category<br>
+4️⃣ Add products using <b>voice, camera, or text</b><br>
+5️⃣ Your shop will be live and visible to nearby customers 🚀<br><br>
+Still facing an issue? Please contact our support team.`,
+    register: `Registration is completely free and takes less than 1 minute 😊<br><br>
+<b>Steps:</b><br>
+1️⃣ Choose Customer or Shop Owner<br>
+2️⃣ Enter mobile number<br>
+3️⃣ Verify OTP<br>
+4️⃣ Start using DUNDOO 🚀`,
+    chooseLang: "Please choose your preferred language:",
+    next: "What would you like to do next?",
+    menu: {
+      whatIs: "📌 What is DUNDOO?",
+      customer: "👤 I am a Customer",
+      shop: "🏪 I am a Shop Owner",
+      register: "📝 How to Register",
+      changeLang: "🌐 Change Language",
+      back: "⬅ Back to Main Menu",
+      login: "👤 Customer Login",
+      search: "🔍 Search Product",
+      regShop: "🏪 Register Shop",
+      addProd: "➕ Add Products"
+    }
+  },
+
+  hi: {
+    welcome: `👋 नमस्ते! <b>DUNDOO</b> में आपका स्वागत है<br><br>
+नए हैं?<br>
+मैं आपको DUNDOO के बारे में समझाऊँगा।`,
+    whatIs: `DUNDOO आपको सही उत्पाद सही नज़दीकी दुकान में खोजने में मदद करता है
+ताकि आप गलत दुकानों में समय बर्बाद न करें।`,
+    customer: `आप उत्पाद खोज सकते हैं और देख सकते हैं कि वह पास की दुकानों में उपलब्ध है।
+आगे बढ़ने के लिए लॉगिन या रजिस्टर करें।`,
+    customerLogin: `ग्राहक के रूप में जारी रखने के लिए 😊<br><br>
+<b>चरण:</b><br>
+1️⃣ ग्राहक लॉगिन पर क्लिक करें<br>
+2️⃣ मोबाइल नंबर दर्ज करें<br>
+3️⃣ OTP सत्यापित करें<br>
+4️⃣ नज़दीकी उत्पाद खोजें 🔍`,
+    shop: `आप अपनी दुकान रजिस्टर कर सकते हैं,
+उत्पाद जोड़ सकते हैं और अधिक ग्राहक पा सकते हैं।`,
+    shopRegister: `रजिस्ट्रेशन बिल्कुल मुफ्त है 😊<br><br>
+<b>DUNDOO पर दुकान रजिस्टर करने के चरण:</b><br>
+1️⃣ दुकान मालिक लॉगिन करें<br>
+2️⃣ OTP सत्यापित करें<br>
+3️⃣ दुकान विवरण और श्रेणी दर्ज करें<br>
+4️⃣ उत्पाद जोड़ें<br>
+5️⃣ आपकी दुकान लाइव हो जाएगी 🚀`,
+    register: `रजिस्ट्रेशन बिल्कुल मुफ्त है 😊<br><br>
+<b>चरण:</b><br>
+1️⃣ ग्राहक या दुकान मालिक चुनें<br>
+2️⃣ मोबाइल नंबर दर्ज करें<br>
+3️⃣ OTP सत्यापित करें<br>
+4️⃣ DUNDOO का उपयोग शुरू करें 🚀`,
+    chooseLang: "कृपया अपनी भाषा चुनें:",
+    next: "अब आप क्या करना चाहेंगे?",
+    menu: {
+      whatIs: "📌 DUNDOO क्या है?",
+      customer: "👤 मैं ग्राहक हूँ",
+      shop: "🏪 मैं दुकान मालिक हूँ",
+      register: "📝 रजिस्ट्रेशन कैसे करें",
+      changeLang: "🌐 भाषा बदलें",
+      back: "⬅ मुख्य मेनू",
+      login: "👤 ग्राहक लॉगिन",
+      search: "🔍 उत्पाद खोजें",
+      regShop: "🏪 दुकान रजिस्टर करें",
+      addProd: "➕ उत्पाद जोड़ें"
+    }
+  }
+};
+
+const icon = document.getElementById("dundoo-chat-icon");
+const box = document.getElementById("dundoo-chatbox");
+const chatScreen = document.getElementById("chatScreen");
+const langScreen = document.getElementById("langScreen");
+
+
+
+icon.onclick = () => {
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+};
+
+function closeChat() {
+  box.style.display = "none";
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  openChat();
+}
+
+function openChat() {
+  langScreen.classList.remove("active");
+  chatScreen.classList.add("active");
+  startChat();
+}
+
+function resetChat() {
+  chatScreen.classList.remove("active");
+  langScreen.classList.add("active");
+}
+
+
+function botMessage(text) {
+  const row = document.createElement("div");
+  row.className = "bot-row";
+  row.innerHTML = `
+    <div class="bot-avatar">
+      <img src="https://res.cloudinary.com/df3lfss5o/image/upload/v1766662211/ChatGPT_Image_Dec_25_2025_04_45_09_PM_ce2i0v.png">
+    </div>
+    <div class="bot-msg">${text}</div>
+  `;
+  chatScreen.appendChild(row);
+}
+
+function userMessage(text) {
+  const row = document.createElement("div");
+  row.className = "user-row";
+  row.innerHTML = `<div class="user-msg">${text}</div>`;
+  chatScreen.appendChild(row);
+}
+
+function clearOptions() {
+  document.querySelectorAll("#chatScreen .options").forEach(o => o.remove());
+}
+
+function showOptions(arr) {
+  const box = document.createElement("div");
+  box.className = "options";
+
+  arr.forEach(o => {
+    const btn = document.createElement("button");
+    btn.innerText = o.label;
+    btn.onclick = o.action;
+    box.appendChild(btn);
+  });
+
+  chatScreen.appendChild(box);
+}
+
+
+function startChat() {
+  chatScreen.innerHTML = "";
+  botMessage(TEXT[currentLang].welcome);
+  showMainMenu();
+}
+
+function showMainMenu() {
+  const m = TEXT[currentLang].menu;
+  showOptions([
+    { label: m.whatIs, action: whatIsDundoo },
+    { label: m.customer, action: customerFlow },
+    { label: m.shop, action: shopOwnerFlow },
+    { label: m.register, action: howToRegister },
+    { label: m.changeLang, action: changeLanguage }
+  ]);
+}
+
+function backToMain() {
+  clearOptions();
+  botMessage(TEXT[currentLang].next);
+  showMainMenu();
+}
+
+function whatIsDundoo() {
+  clearOptions();
+  userMessage(TEXT[currentLang].menu.whatIs);
+  botMessage(TEXT[currentLang].whatIs);
+  showOptions([{ label: TEXT[currentLang].menu.back, action: backToMain }]);
+}
+
+function customerFlow() {
+  clearOptions();
+  userMessage(TEXT[currentLang].menu.customer);
+  botMessage(TEXT[currentLang].customer);
+  showOptions([
+    { label: TEXT[currentLang].menu.login, action: () => botMessage(TEXT[currentLang].customerLogin) },
+    { label: TEXT[currentLang].menu.search, action: () => botMessage("🔍 Coming soon…") },
+    { label: TEXT[currentLang].menu.back, action: backToMain }
+  ]);
+}
+
+function shopOwnerFlow() {
+  clearOptions();
+  userMessage(TEXT[currentLang].menu.shop);
+  botMessage(TEXT[currentLang].shop);
+  showOptions([
+    { label: TEXT[currentLang].menu.regShop, action: () => botMessage(TEXT[currentLang].shopRegister) },
+    { label: TEXT[currentLang].menu.addProd, action: () => botMessage("➕ Coming soon…") },
+    { label: TEXT[currentLang].menu.back, action: backToMain }
+  ]);
+}
+
+function howToRegister() {
+  clearOptions();
+  userMessage(TEXT[currentLang].menu.register);
+  botMessage(TEXT[currentLang].register);
+  showOptions([{ label: TEXT[currentLang].menu.back, action: backToMain }]);
+}
+
+function changeLanguage() {
+  clearOptions();
+  botMessage(TEXT[currentLang].chooseLang);
+  showOptions([
+    { label: "English", action: () => { currentLang = "en"; startChat(); } },
+    { label: "हिन्दी", action: () => { currentLang = "hi"; startChat(); } },
+    { label: TEXT[currentLang].menu.back, action: backToMain }
+  ]);
+}
+</script>
+
+
+
+
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {
+      pageLanguage: 'en',
+      autoDisplay: false
+    },
+    'google_translate_element'
+  );
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+(function killGoogleBannerForever() {
+  const observer = new MutationObserver(() => {
+    const banner = document.querySelector('.goog-te-banner-frame');
+    if (banner) {
+      banner.remove();
+      document.body.style.top = '0px';
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+})();
+</script>
+<script>
+
+document.getElementById("languageSwitcher").addEventListener("change", function () {
+  const selectedLang = this.value;
+  const dropdown = this;
+
+  
+  const interval = setInterval(() => {
+    const googleSelect = document.querySelector("select.goog-te-combo");
+    if (googleSelect) {
+      googleSelect.value = selectedLang;
+      googleSelect.dispatchEvent(new Event("change"));
+      clearInterval(interval);
+    }
+  }, 200);
+
+  
+  setTimeout(() => {
+    dropdown.value = "en";
+  }, 300);
+});
+
+
+</script>
+<script>
+window.addEventListener("load", () => {
+  const langSelect = document.getElementById("languageSwitcher");
+  if (langSelect) {
+    langSelect.value = "en";
+  }
+});
+</script>
+<script>
+  
+  
+  const header = document.querySelector(".header");
+  
+  
+  document.addEventListener("mousemove", (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    header.style.setProperty("--x", x + "%");
+    header.style.setProperty("--y", y + "%");
+    header.classList.add("glow");
+  });
+  
+  
+  document.addEventListener("mouseleave", () => {
+    header.classList.remove("glow");
+  });
+  
+  
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 20) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+  
+  
+  document.querySelectorAll(
+    ".get-started, .btn.primary, .btn.secondary, #voiceBtn"
+  ).forEach(btn => {
+    btn.addEventListener("mousemove", e => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px) scale(1.05)`;
+    });
+  
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "translate(0,0) scale(1)";
+    });
+  });
+  </script>
+<script>
+    
+    
+    const header = document.querySelector(".header");
+    
+   
+    window.addEventListener("scroll", () => {
+      header.style.boxShadow =
+        window.scrollY > 40
+          ? "0 25px 60px rgba(0,0,0,0.65)"
+          : "0 15px 40px rgba(0,0,0,0.45)";
+    });
+    </script>
+    
+    <script>
+      
+      
+      const grid = document.querySelector(".category-grid");
+      const cards = document.querySelectorAll(".category-card");
+      
+      
+      cards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+          grid.classList.add("active");
+          card.classList.add("active");
+        });
+      
+        card.addEventListener("mouseleave", () => {
+          grid.classList.remove("active");
+          card.classList.remove("active");
+        });
+      });
+      
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0) scale(1)";
+          }
+        });
+      }, { threshold: 0.3 });
+      
+      cards.forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(60px) scale(0.92)";
+        card.style.transition =
+          "all 0.9s cubic-bezier(0.22,1,0.36,1)";
+        observer.observe(card);
+      });
+      
+      
+      cards.forEach(card => {
+        card.addEventListener("mousemove", e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+      
+          card.style.transform =
+            `rotateX(${y * -8}deg)
+             rotateY(${x * 8}deg)
+             translateY(-22px)
+             scale(1.08)`;
+        });
+      
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "";
+        });
+      });
+      </script>
+      
+</body>
+</html>

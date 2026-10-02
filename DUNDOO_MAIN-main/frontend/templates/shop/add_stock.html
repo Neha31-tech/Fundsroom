@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="shop-layout">
+  <div class="shop-main w-100">
+
+    <a href="{{ url_for('shop.products') }}" class="btn btn-link mb-3">
+      &larr; Back to Products
+    </a>
+
+    <div class="card">
+      <div class="card-header">
+        Add Stock - {{ product.product_name }}
+      </div>
+      <div class="card-body">
+        <p class="text-muted mb-2">
+          Current stock: <strong>{{ product.quantity }}</strong>
+        </p>
+
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Quantity to add</label>
+            <input type="number" name="amount" class="form-control" min="1" required>
+          </div>
+          <button class="btn btn-success w-100">Add Stock</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

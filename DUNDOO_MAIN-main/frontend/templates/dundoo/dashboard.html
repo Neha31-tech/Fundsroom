@@ -1,0 +1,161 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ShopKeeper – Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  </head>
+  <body>
+    <div class="layout">
+      
+      <aside class="sidebar">
+        <div>
+          <div class="sidebar__brand">
+            ShopKeeper
+            <span>Business Dashboard</span>
+          </div>
+
+          <nav class="sidebar__nav">
+            <div class="sidebar__section-label">Main</div>
+            <a href="dashboard.html" class="sidebar__link sidebar__link--active">
+              <span class="sidebar__link-dot"></span> Dashboard
+            </a>
+            <a href="stock.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Stock
+            </a>
+            <a href="transactions.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Transactions
+            </a>
+            <a href="billing.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Billing
+            </a>
+            <a href="reports.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Reports
+            </a>
+            <a href="chatbot.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Chatbot
+            </a>
+            <a href="business-settings.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Business Settings
+            </a>
+            <a href="settings.html" class="sidebar__link">
+              <span class="sidebar__link-dot"></span> Settings
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar__bottom">
+          <button class="sidebar__signout">Sign Out</button>
+          <p class="sidebar__copyright">© 2024 ShopKeeper Dashboard</p>
+        </div>
+      </aside>
+
+      
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__welcome">Welcome back, Admin</div>
+          <div class="topbar__avatar">A</div>
+        </header>
+
+        <section class="content">
+          <h1 class="page-title">Dashboard Overview</h1>
+          <p class="page-subtitle">
+            Track your business performance and key metrics.
+          </p>
+
+          
+          <div class="metrics-grid">
+            <div class="card metric-card metric-card--primary">
+              <div class="metric-card__label">Today's Sales</div>
+              <div class="metric-card__value">₹0</div>
+            </div>
+            <div class="card metric-card">
+              <div class="metric-card__label">Profit</div>
+              <div class="metric-card__value">₹0.00</div>
+            </div>
+            <div class="card metric-card metric-card--danger">
+              <div class="metric-card__label">Loss</div>
+              <div class="metric-card__value">₹0</div>
+            </div>
+            <div class="card metric-card">
+              <div class="metric-card__label">Monthly Expenses</div>
+              <div class="metric-card__value">₹0</div>
+            </div>
+            <div class="card metric-card metric-card--warning">
+              <div class="metric-card__label">Low Stock Items</div>
+              <div class="metric-card__value">0</div>
+            </div>
+          </div>
+
+          
+          <div class="main-grid-2">
+            <div class="card">
+              <div class="card-title">Sales vs Expenses</div>
+              <div class="chart-placeholder">
+                Line / bar chart placeholder
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Top Selling Products</div>
+              <div class="pie-placeholder"></div>
+              <ul class="list" style="font-size: 13px">
+                <li>Rice – 66%</li>
+                <li>Sugar – 34%</li>
+              </ul>
+            </div>
+          </div>
+
+          
+          <div class="main-grid-2">
+            <div class="card">
+              <div class="card-title">Expense Breakdown</div>
+              <p style="font-size: 13px; color: var(--muted); margin-top: 8px">
+                No expense data available. Start by adding some expenses.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Recent Activity</div>
+              <ul class="list list--activity" style="margin-top: 4px">
+                <li>
+                  <div class="activity-label">
+                    <span>Sale: Rice</span>
+                    <span>Sep 25, 07:39 PM</span>
+                  </div>
+                  <div>₹8.75</div>
+                </li>
+                <li>
+                  <div class="activity-label">
+                    <span>Sale: Sugar</span>
+                    <span>Sep 25, 07:02 PM</span>
+                  </div>
+                  <div>₹50</div>
+                </li>
+                <li>
+                  <div class="activity-label">
+                    <span>Sale: Rice</span>
+                    <span>Sep 25, 06:15 PM</span>
+                  </div>
+                  <div>₹60</div>
+                </li>
+                <li>
+                  <div class="activity-label">
+                    <span>Sale: Rice</span>
+                    <span>Sep 25, 05:12 PM</span>
+                  </div>
+                  <div>₹35</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
+
+
+<a href="/logout">Logout</a>
